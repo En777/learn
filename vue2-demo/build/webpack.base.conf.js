@@ -35,6 +35,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
+      'src': resolve('src'),
+      'biz': resolve('src/biz'),
     }
   },
   module: {
@@ -49,6 +51,17 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+      },
+      // https://github.com/webpack-contrib/less-loader
+      {
+        test: /\.less$/,
+        use: [{
+            loader: "style-loader" // creates style nodes from JS strings
+        }, {
+            loader: "css-loader" // translates CSS into CommonJS
+        }, {
+            loader: "less-loader" // compiles Less to CSS
+        }]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
