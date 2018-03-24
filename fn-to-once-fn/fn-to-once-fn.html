@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+</head>
+<body>
+  把一个函数，转换成 once 函数，只能执行一次，后续再执行此函数返回 undefined。
+  <hr>
+  <script>
+    function toOnceFn (fn) {
+      var isExecuted = false
+      return function () {
+        if (isExecuted) return undefined
+
+        isExecuted = true
+        // apply 再次把参数传入进去
+        var result = fn.apply(this, arguments)
+        return result
+      }
+    }
+
+
+
+    // test
+    function test1(msg) {
+      return msg ? 'test1 ' + msg : 'test1'
+    }
+
+    var onceTest1 = toOnceFn(test1)
+
+    console.log(onceTest1())
+    console.log(onceTest1('a msg'))
+    console.log(onceTest1())
+
+
+    var onceTest2 = toOnceFn(test1)
+
+    console.log(onceTest2())
+    console.log(onceTest2('a msg'))
+    console.log(onceTest2())
+  </script>
+
+
+</body>
+</html>
