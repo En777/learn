@@ -9,9 +9,7 @@
   <script>
     function delay (ms) {
       return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          resolve()
-        }, ms)
+        setTimeout(resolve, ms)
       })
     }
 
