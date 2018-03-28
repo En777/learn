@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+</head>
+<body>
+
+  <script>
+    function delay (ms) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          resolve()
+        }, ms)
+      })
+    }
+
+
+    console.log(Date.now())
+
+    delay(2000)
+      .then(function () {
+        console.log('delay 2000', Date.now())
+      })
+
+    delay(3000)
+      .then(function () {
+        console.log(Date.now())
+        return delay(2000)
+      })
+      .then(function () {
+        console.log(Date.now())
+      })
+  </script>
+</body>
+</html>
