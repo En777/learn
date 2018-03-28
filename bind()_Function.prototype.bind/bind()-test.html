@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+</head>
+<body>
+  <script>
+    var user = {
+      name: 'xx',
+      getName: function () {
+        return this.name
+      }
+    }
+
+    console.log(user.getName())  // xx
+
+    var getName2 = user.getName
+
+    console.log(getName2() || 'no content')  // no content
+    // fix getName
+    getName2 = getName2.bind(user)
+    console.log(getName2())      // xx
+
+
+    console.log('-------------------')
+  </script>
+
+
+  <script>
+    // 自己实现 bind 的 polyfill
+
+    // bind2 跟原生的 bind 还是有很多区别，这只是简单模拟
+    Function.prototype.bind2 = function (context) {
+      var originalFn = this
+      // console.log(this)
+      return function () {
+        // console.log(this)
+        // console.log(self)
+        return originalFn.apply(context, arguments)
+      }
+    }
+
+    var getName3 = user.getName
+
+    console.log(getName3() || 'no content')  // no content
+    // fix getName
+    getName3 = getName3.bind2(user)
+    console.log(getName3())      // xx
+  </script>
+</body>
+</html>
